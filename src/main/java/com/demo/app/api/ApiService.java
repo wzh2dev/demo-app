@@ -66,6 +66,9 @@ public class ApiService {
      */
     public ApiResponse<List<Product>> listProducts(Long categoryId, String sort,
                                                     int pageNumber, int pageSize) {
+        if (pageNumber < 1 || pageSize < 1) {
+            return ApiResponse.error(400, "分页参数非法");
+        }
         HttpRequest.Builder builder = HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .url("/api/products")
@@ -97,6 +100,9 @@ public class ApiService {
      * 创建订单。
      */
     public ApiResponse<Order> createOrder(Long addressId, String remark) {
+        if (addressId == null || addressId <= 0) {
+            return ApiResponse.error(400, "收货地址 ID 非法");
+        }
         HttpRequest.Builder builder = HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .url("/api/orders")
@@ -113,6 +119,9 @@ public class ApiService {
      * 获取订单详情。
      */
     public ApiResponse<Order> getOrder(Long id) {
+        if (id == null || id <= 0) {
+            return ApiResponse.error(400, "订单 ID 非法");
+        }
         HttpRequest request = HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .url("/api/orders/" + id)
@@ -125,6 +134,9 @@ public class ApiService {
      * 取消订单。
      */
     public ApiResponse<Void> cancelOrder(Long id) {
+        if (id == null || id <= 0) {
+            return ApiResponse.error(400, "订单 ID 非法");
+        }
         HttpRequest request = HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .url("/api/orders/" + id + "/cancel")
@@ -164,6 +176,12 @@ public class ApiService {
      * 更新购物车项。
      */
     public ApiResponse<Void> updateCartItem(Long itemId, int quantity, Boolean selected) {
+        if (itemId == null || itemId <= 0) {
+            return ApiResponse.error(400, "购物车项 ID 非法");
+        }
+        if (quantity < 0) {
+            return ApiResponse.error(400, "购买数量不能为负");
+        }
         HttpRequest.Builder builder = HttpRequest.builder()
                 .method(HttpMethod.PUT)
                 .url("/api/cart/" + itemId)
@@ -182,6 +200,9 @@ public class ApiService {
      * 从购物车移除。
      */
     public ApiResponse<Void> removeFromCart(Long itemId) {
+        if (itemId == null || itemId <= 0) {
+            return ApiResponse.error(400, "购物车项 ID 非法");
+        }
         HttpRequest request = HttpRequest.builder()
                 .method(HttpMethod.DELETE)
                 .url("/api/cart/" + itemId)

@@ -104,7 +104,8 @@ public final class DeviceUtils {
      */
     public static int sp2px(Context context, float sp) {
         float scaledDensity = getDisplayMetrics(context) == null
-                ? 1f : getDisplayMetrics(context).scaledDensity;
+                ? 1f
+                : getDisplayMetrics(context).scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);
     }
 
@@ -135,5 +136,26 @@ public final class DeviceUtils {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * 样例方法：获取设备综合信息摘要。
+     *
+     * @param context 上下文
+     * @return 形如 "Brand=xxx;Model=xxx;OS=x.x;SDK=x;AppVer=x(x)" 的摘要字符串
+     */
+    public static String getDeviceSummary(Context context) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Brand=").append(getDeviceBrand())
+                .append(";Model=").append(getDeviceModel())
+                .append(";OS=").append(getOsVersion())
+                .append(";SDK=").append(getSdkInt());
+        if (context != null) {
+            sb.append(";AppVer=").append(getVersionName(context))
+                    .append("(").append(getVersionCode(context)).append(")")
+                    .append(";Screen=").append(getScreenWidth(context))
+                    .append("x").append(getScreenHeight(context));
+        }
+        return sb.toString();
     }
 }
