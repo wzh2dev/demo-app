@@ -1,0 +1,14 @@
+src/main/java/com/demo/app/util/StringUtils.java
+  h_ec0865e8a99e9f 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.2",
+  "base_commit_sha": "6293deb12c417b1964880f1c709d4eb6115f953d",
+  "prompts": {},
+  "humans": {
+    "h_ec0865e8a99e9f": {
+      "author": "Claude Sonnet 5 <noreply@anthropic.com>"
+    }
+  }
+}
